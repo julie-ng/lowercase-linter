@@ -8,7 +8,7 @@ on:
       - 'feat/*'
       - 'fix/*'
     paths-ignore:
-      - '**/*.md'
+      - '**.md'
 
 jobs:
   ci:
