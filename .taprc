@@ -1,0 +1,4 @@
+coverage: false
+lines: 80
+functions: 80
+statements: 80

@@ -13,29 +13,29 @@ const _ = {
 const exceptions = [
   'CONTRIBUTING.md',
   'LICENSE.md',
-	'README.md'
+	'README.md',
+  'SECURITY.md'
 ]
 
-// function isExtensionLowerCase (filename) {
-//   const ext = _.last(filename.split('.'))
-//   return _hasUpperCase(ext) === false
-// }
+function _isExtensionLowerCase (filename) {
+  const ext = _.last(filename.split('.'))
+  return _hasUpperCase(ext) === false
+}
 
 function hasMixedCase (path) {
-
   const toCheck = path.includes('/')
     ? _.last(path.split('/'))
     : path
 
 	const isMixed = _hasLowerCase(toCheck) && _hasUpperCase(toCheck)
-	return isMixed && _notException(toCheck)
+	return isMixed && !_isException(toCheck)
 }
 
-function _notException (str) {
+function _isException (str) {
 	const filename = str.includes('/')
     ? _.last(str.split('/'))
     : str
-  return exceptions.includes(filename) === false
+  return exceptions.includes(filename) === true
 }
 
 function _hasLowerCase (str) {
@@ -50,6 +50,10 @@ function _hasUpperCase (str) {
 // ----------------
 
 function camelCaseToDash (v) {
+  if (v.toUpperCase() === v && _hasLowerCase(v) === false) {
+    return v
+  }
+
   let ret = '', prevLowercase = false, prevIsNumber = false
   for (let s of v) {
     const isUppercase = s.toUpperCase() === s
@@ -77,5 +81,9 @@ function camelCaseToDash (v) {
 
 module.exports = {
 	hasMixed: hasMixedCase,
-	camelCaseToDash: camelCaseToDash
+	camelCaseToDash: camelCaseToDash,
+  _hasUpperCase: _hasUpperCase,
+  _hasLowerCase: _hasLowerCase,
+  _isException: _isException,
+  _isExtensionLowerCase: _isExtensionLowerCase
 }
