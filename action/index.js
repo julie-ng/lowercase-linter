@@ -2,7 +2,7 @@
 
 const fs = require('fs')
 const path = require('path')
-const colors = require('./util/colors')
+const colors = require('./ui/colors')
 const caseHelper = require('./util/case')
 
 const findMixed = function (dir, results = []) {

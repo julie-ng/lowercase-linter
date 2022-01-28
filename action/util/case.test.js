@@ -1,3 +1,5 @@
+'use strict'
+
 const tap = require('tap')
 const helper = require('./case')
 

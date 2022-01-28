@@ -1,4 +1,5 @@
 coverage: false
-lines: 80
-functions: 80
-statements: 80
+lines: 50
+functions: 50
+statements: 50
+branches: 50
