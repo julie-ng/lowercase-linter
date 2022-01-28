@@ -1,4 +1,5 @@
 'use strict'
+const exceptions = require('./exceptions').default
 
 // lazy lodash
 const _ = {
@@ -6,16 +7,6 @@ const _ = {
     return arry[arry.length-1]
   }
 }
-
-// Is Mixed Filename?
-// ------------------
-
-const exceptions = [
-  'CONTRIBUTING.md',
-  'LICENSE.md',
-	'README.md',
-  'SECURITY.md'
-]
 
 function _isExtensionLowerCase (filename) {
   const ext = _.last(filename.split('.'))
@@ -45,9 +36,6 @@ function _hasLowerCase (str) {
 function _hasUpperCase (str) {
 	return (/[A-Z]/.test(str))
 }
-
-// Suggest filename
-// ----------------
 
 function camelCaseToDash (v) {
   if (v.toUpperCase() === v && _hasLowerCase(v) === false) {

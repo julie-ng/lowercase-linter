@@ -32,9 +32,6 @@ function _filenameToSuggestion (pathname) {
 	return suggest.join(colors.dim('/'))
 }
 
-// Exports
-// -------
-
 module.exports = {
 	outputErrors: outputErrors,
 	_filenameToSuggestion: _filenameToSuggestion
