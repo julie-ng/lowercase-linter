@@ -5,30 +5,40 @@ const path = require('path')
 const colors = require('./ui/colors')
 const caseHelper = require('./util/case')
 
-const findMixed = function (dir, results = []) {
+const ALWAYS_SKIP = [
+	'.git',
+	'node_modules'
+]
+
+const linter = function (opts = {}, results = []) {
+	const dir = opts.path
+	const ignore = opts.ignore || []
+
+	// console.log('dir', dir)
+	// console.log('ignore', ignore)
+	// console.log(fs.readdirSync(dir))
+
 	try {
+
 		const files = fs.readdirSync(dir)
 
 		files.forEach(f => {
-			const fullPath = path.join(dir, f)
-			const stats = fs.lstatSync(fullPath)
-			const isMixed = caseHelper.hasMixed(fullPath)
+			const fullpath = path.join(dir, f)
 
-			results.push({
-				path: fullPath,
-				isValid: isMixed === false
-			})
+			if (!ignore.includes(fullpath) && !ALWAYS_SKIP.includes(f)) {
+				const stats = fs.lstatSync(fullpath)
 
-			if (isMixed) {
-				console.log(' ' + colors.red('ⅹ') + ' ' + fullPath)
-			} else {
-				console.log(' ' + colors.green('✔') + ' ' + fullPath)
-			}
-
-			if (stats.isDirectory()) {
-				findMixed(fullPath, results)
+				// checkPath()
+				const check = lintName(fullpath)
+				logStatus(check)
+				results.push(check)
+				if (stats.isDirectory()) {
+					linter({ path: fullpath }, results)
+				}
 			}
 		})
+
+
 	} catch (err) {
 		console.log(err)
 	}
@@ -37,4 +47,21 @@ const findMixed = function (dir, results = []) {
 }
 
 
-module.exports = findMixed
+const lintName = function (path) {
+	return {
+		path: path,
+		isValid: caseHelper.hasMixed(path) === false
+	}
+}
+
+const logStatus = function (file) {
+	const icon = file.isValid
+		? colors.green('✔')
+		: colors.red('ⅹ')
+
+	console.log(' ' + icon + ' ' + file.path)
+}
+
+module.exports = {
+	findMixed: linter
+}

@@ -4,7 +4,7 @@ const defaults = [
   'CONTRIBUTING.md',
   'LICENSE.md',
 	'README.md',
-  'SECURITY.md'
+  'SECURITY.md',
 ]
 
 module.exports = {

@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+!fixtures/node_modules/
 .nyc_output/
-coverage/
+coverage
 cc-test-reporter

@@ -1,13 +1,26 @@
 'use strict'
 
-const findMixed = require('./action/')
+const fs = require('fs')
+const linter = require('./action/')
 const ui = require('./action/ui')
+
+let gitignore = []
+
+fs.readFileSync('./.gitignore', 'utf8').split('\n').forEach((g) => {
+	const file = (g[g.length-1] === '/')
+		? g.split('/').slice(0,-1).join('/')
+		: g
+	gitignore.push(file)
+})
+// console.log(gitignore)
 
 ui.headings.startingCheck()
 
-// ui.startingCheck()
+const mixed = linter.findMixed({
+	path: '.', //path: 'fixtures/',
+	ignore: gitignore
+})
 
-const mixed = findMixed('fixtures/')
 const errors = mixed.filter((m) => m.isValid === false)
 
 if (errors.length > 0) {
