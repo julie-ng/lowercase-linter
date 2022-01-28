@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
-const colors = require('./helpers/colors')
-const caseHelper = require('./helpers/case')
+const colors = require('./util/colors')
+const caseHelper = require('./util/case')
 
 const errorIcon = colors.red('𝗫')
 const mixed = findMixed('test/')
