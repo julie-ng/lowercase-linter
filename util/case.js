@@ -16,6 +16,11 @@ const exceptions = [
 	'README.md'
 ]
 
+// function isExtensionLowerCase (filename) {
+//   const ext = _.last(filename.split('.'))
+//   return _hasUpperCase(ext) === false
+// }
+
 function hasMixedCase (path) {
 
   const toCheck = path.includes('/')
