@@ -1,3 +1,5 @@
+'use strict'
+
 const colors = require('./colors')
 const errorIcon = colors.red('ⅹ') // TODO
 const caseHelper = require('./case')
@@ -24,7 +26,7 @@ function _errorSummaryHeading (opts = { count: '' }) {
 	console.log('')
 }
 
-function _errorClosingHeading() {
+function _errorClosingHeading () {
 	console.log('')
 	console.log('Please rename your files, commit and push again before merging.')
 	console.log('')

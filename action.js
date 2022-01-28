@@ -1,3 +1,5 @@
+'use strict'
+
 const findMixed = require('./find-mixed')
 const ui = require('./util/output.ui')
 

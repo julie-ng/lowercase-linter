@@ -1,0 +1,21 @@
+{
+  "name": "action-lowercase-only",
+  "version": "0.0.0",
+  "description": "",
+  "main": "action.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julie-ng/action-lowercase-only.git"
+  },
+  "author": "Julie Ng <me@julie.io>",
+  "license": "MIT",
+  "homepage": "https://github.com/julie-ng/action-lowercase-only",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.7.0"
+  }
+}

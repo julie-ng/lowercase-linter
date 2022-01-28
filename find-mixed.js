@@ -1,3 +1,5 @@
+'use strict'
+
 const fs = require('fs')
 const path = require('path')
 const colors = require('./util/colors')
@@ -9,7 +11,7 @@ const findMixed = function (dir, results = []) {
 
 		files.forEach(f => {
 			const fullPath = path.join(dir, f)
-			stats = fs.lstatSync(fullPath)
+			const stats = fs.lstatSync(fullPath)
 			const isMixed = caseHelper.hasMixed(fullPath)
 
 			results.push({

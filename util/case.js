@@ -1,3 +1,5 @@
+'use strict'
+
 // lazy lodash
 const _ = {
   last: function (arry) {
