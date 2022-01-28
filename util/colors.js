@@ -33,8 +33,14 @@ const ref = {
 	}
 }
 
+const wrap = function (color, str) {
+	return ref.fg[color] + str + ref.reset
+}
+
 module.exports = {
-	red (str) {
-		return ref.fg.red + str + ref.reset
-	}
+	red: (str) => wrap('red', str),
+	cyan: (str) => wrap('cyan', str),
+	green: (str) => wrap('green', str),
+	yellow: (str) => wrap('yellow', str),
+	dim: (str) => ref.dim + str + ref.reset,
 }
