@@ -26,3 +26,29 @@ jobs:
 
       - run: npm run lint
       - run: npm run test
+
+  coverage:
+    runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      GIT_BRANCH: ${{ github.ref_name }}
+      GIT_COMMIT: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: setup reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter  before-build
+
+      - name: publish report
+        run: |
+          npm ci
+          npm run test
+          npm run coverage
+          ./cc-test-reporter format-coverage coverage/clover.xml --input-type clover
+          ./cc-test-reporter upload-coverage

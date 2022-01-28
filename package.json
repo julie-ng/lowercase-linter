@@ -12,6 +12,7 @@
   "homepage": "https://github.com/julie-ng/action-lowercase-only",
   "scripts": {
     "test": "tap",
+    "coverage": "tap --check-coverage --coverage-report=clover",
     "lint": "eslint ."
   },
   "dependencies": {},
