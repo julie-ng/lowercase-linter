@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - 'dev'
+      - 'main'
+      - 'feat/*'
+      - 'fix/*'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '12', '14', '16' ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - run: npm ci
+      - run: npm audit
+        continue-on-error: true # only dev deps in this repo
+
+      - run: npm run lint
+      - run: npm run test
