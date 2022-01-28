@@ -25,4 +25,3 @@ jobs:
         continue-on-error: true # only dev deps in this repo
 
       - run: npm run lint
-      - run: npm run test
