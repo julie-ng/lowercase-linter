@@ -1,8 +1,8 @@
-# action-lowercase-only
+# lowercase-only-action
 
-[![ci](https://github.com/julie-ng/action-lowercase-only/actions/workflows/ci.yaml/badge.svg)](https://github.com/julie-ng/action-lowercase-only/actions/workflows/ci.yaml) 
-[![Maintainability](https://api.codeclimate.com/v1/badges/215f41e69f428205e28e/maintainability)](https://codeclimate.com/github/julie-ng/action-lowercase-only/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/215f41e69f428205e28e/test_coverage)](https://codeclimate.com/github/julie-ng/action-lowercase-only/test_coverage)
+[![ci](https://github.com/julie-ng/lowercase-only-action/actions/workflows/ci.yaml/badge.svg)](https://github.com/julie-ng/lowercase-only-action/actions/workflows/ci.yaml) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/d456de827d1bc27addb0/maintainability)](https://codeclimate.com/github/julie-ng/lowercase-only-action/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d456de827d1bc27addb0/test_coverage)](https://codeclimate.com/github/julie-ng/lowercase-only-action/test_coverage)
 
 A GitHub Action to fail builds whos files have both upper and lower case mixed, i.e. camelCase to prevent filename conflicts and broken deployments.
 
