@@ -1,67 +1,46 @@
 'use strict'
 
-const fs = require('fs')
-const path = require('path')
-const colors = require('./ui/colors')
-const caseHelper = require('./util/case')
+const lint = require('./lint')
+const headings = require('./ui/headings')
+const suggestion = require( './suggestion' )
+const ui = require('./ui')
 
-const ALWAYS_SKIP = [
-	'.git',
-	'node_modules'
-]
+function run (opts = {}) {
+	ui.printStart()
 
-const linter = function (opts = {}, results = []) {
-	const dir = opts.path
-	const ignore = opts.ignore || []
+	const results = lint(opts)
 
-	// console.log('dir', dir)
-	// console.log('ignore', ignore)
-	// console.log(fs.readdirSync(dir))
 
-	try {
+	const errors = results.filter((m) => m.isValid === false)
+	// console.log('errors', errors)
 
-		const files = fs.readdirSync(dir)
+	const withSuggestions = []
 
-		files.forEach(f => {
-			const fullpath = path.join(dir, f)
+	if (errors.length > 0) {
+		headings.printErrorIntro({ count: errors.length })
+		errors.forEach((e) => {
+			const s = suggestion(e.path)
+			e.suggestedFix = s.fullpath
+			console.log(`  ${ui.errorIcon} ` + s.asText)
 
-			if (!ignore.includes(fullpath) && !ALWAYS_SKIP.includes(f)) {
-				const stats = fs.lstatSync(fullpath)
+			withSuggestions.push({
+				path: e.path,
+				suggestedFix: s.fullpath,
+				isDirectory: e.isDirectory,
+				isValid: e.isValid,
+				hasMixedCase: e.hasMixedCase
+			})
 
-				// checkPath()
-				const check = lintName(fullpath)
-				logStatus(check)
-				results.push(check)
-				if (stats.isDirectory()) {
-					linter({ path: fullpath }, results)
-				}
-			}
 		})
-
-
-	} catch (err) {
-		console.log(err)
+		headings.printErrorClosing()
 	}
 
-	return results
-}
-
-
-const lintName = function (path) {
 	return {
-		path: path,
-		isValid: caseHelper.hasMixed(path) === false
+		results: results,
+		errors: withSuggestions
 	}
-}
-
-const logStatus = function (file) {
-	const icon = file.isValid
-		? colors.green('✔')
-		: colors.red('ⅹ')
-
-	console.log(' ' + icon + ' ' + file.path)
 }
 
 module.exports = {
-	findMixed: linter
+	run: run
 }

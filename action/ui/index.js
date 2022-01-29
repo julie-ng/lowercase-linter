@@ -1,6 +1,10 @@
 'use strict'
 
+const headings = require('./headings')
+const colors = require('./colors')
+
 module.exports = {
-	headings: require('./headings'),
-	outputErrors: require('./ui').outputErrors
+	printStart: headings.printStart,
+	errorIcon: colors.red('ⅹ'),
+	okIcon: colors.green('✔')
 }

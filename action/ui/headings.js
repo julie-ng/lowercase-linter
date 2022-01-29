@@ -2,12 +2,12 @@
 
 const colors = require('./colors')
 
-function startingCheck () {
+function printStart () {
 	console.log('')
 	console.log(colors.yellow('Checking filenames'.toUpperCase()))
 }
 
-function errorSummary (opts = { count: '' }) {
+function printErrorIntro (opts = { count: '' }) {
 	console.log('')
 	console.log(colors.yellow(`ERRORS FOUND: ${opts.count}`))
 	console.log('Mixed case filenames can cause problems when collaborating via git')
@@ -18,14 +18,14 @@ function errorSummary (opts = { count: '' }) {
 	console.log('')
 }
 
-function errorClosing () {
+function printErrorClosing () {
 	console.log('')
 	console.log('Please rename your files, commit and push again before merging.')
 	console.log('')
 }
 
 module.exports = {
-	startingCheck,
-	errorSummary,
-	errorClosing
+	printStart,
+	printErrorIntro,
+	printErrorClosing
 }

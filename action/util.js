@@ -1,5 +1,5 @@
 'use strict'
-const exceptions = require('./exceptions').default
+const exceptions = require('./exceptions').alwaysValid
 
 // lazy lodash
 const _ = {
@@ -64,11 +64,27 @@ function camelCaseToDash (v) {
   return ret.replace(/-+/g, '-').toLowerCase()
 }
 
+function noTrailingSlash (str) {
+	if (hasTrailingSlash(str)) {
+		const parts = str.split('/')
+		return parts.slice(0, parts.length-1).join('/')
+	} else {
+		return str
+	}
+}
+
+function hasTrailingSlash (str) {
+	return str[str.length-1] === '/'
+}
+
+
 // Exports
 // -------
 
 module.exports = {
 	hasMixed: hasMixedCase,
+  hasTrailingSlash: hasTrailingSlash,
+  noTrailingSlash: noTrailingSlash,
 	camelCaseToDash: camelCaseToDash,
   _hasUpperCase: _hasUpperCase,
   _hasLowerCase: _hasLowerCase,
