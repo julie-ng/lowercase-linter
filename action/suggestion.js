@@ -23,6 +23,7 @@ function suggestion (filepath = '') {
 		original: {
 			name: originalName,
 			parentDir: originalDir,
+			fullPath: originalDir + originalName
 		},
 		name: sgName,
 		parentDir: sgDir,

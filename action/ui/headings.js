@@ -2,14 +2,17 @@
 
 const colors = require('./colors')
 
-function printStart () {
+function printStart (opts = { path: '' }) {
+	const toSearch = opts.path
+		? colors.yellow(' in ') + colors.cyan(opts.path)
+		: ''
 	console.log('')
-	console.log(colors.yellow('Checking filenames'.toUpperCase()))
+	console.log(colors.yellow('Checking filenames'.toUpperCase()) + toSearch)
 }
 
 function printErrorIntro (opts = { count: '' }) {
 	console.log('')
-	console.log(colors.yellow(`ERRORS FOUND: ${opts.count}`))
+	console.log(colors.red(`ERRORS FOUND: ${opts.count}`))
 	console.log('Mixed case filenames can cause problems when collaborating via git')
 	console.log('because filenames are case in-sensitive Windows but sensistive in Linux.')
 	console.log('')
@@ -24,8 +27,14 @@ function printErrorClosing () {
 	console.log('')
 }
 
+function printSuccess () {
+	console.log()
+	console.log(colors.green('👍 Success - no mixed case filenames found.'))
+}
+
 module.exports = {
 	printStart,
 	printErrorIntro,
-	printErrorClosing
+	printErrorClosing,
+	printSuccess
 }

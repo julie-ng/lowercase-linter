@@ -1,21 +1,25 @@
 {
   "name": "action-lowercase-only",
   "version": "0.0.0",
-  "description": "",
-  "main": "action.js",
+  "author": "Julie Ng <me@julie.io>",
+  "main": "main.js",
+  "description": "A GitHub Action to fail builds whos files have both upper and lower case mixed, i.e. camelCase.",
+  "license": "MIT",
+  "homepage": "https://github.com/julie-ng/action-lowercase-only",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/julie-ng/action-lowercase-only.git"
   },
-  "author": "Julie Ng <me@julie.io>",
-  "license": "MIT",
-  "homepage": "https://github.com/julie-ng/action-lowercase-only",
   "scripts": {
     "test": "tap",
     "coverage": "tap --check-coverage --coverage-report=clover",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "preflight": "tap && eslint ."
   },
-  "dependencies": {},
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  },
   "devDependencies": {
     "eslint": "^8.7.0",
     "tap": "^15.1.6"
