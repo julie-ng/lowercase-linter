@@ -3,7 +3,10 @@
 const linter = require('./action/')
 
 try {
-	linter.run({ path: 'fixtures/' })
+	const results = linter.run({ path: 'fixtures/' })
+	if (results.errors.length > 0) {
+		process.exit(1)
+	}
 } catch (err) {
 	console.log(JSON.stringify(err.invalidNames))
 	console.log(err.body)
