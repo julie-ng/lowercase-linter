@@ -12,9 +12,12 @@
   },
   "scripts": {
     "test": "tap",
+    "test-dev": "tap action/linter/string-helper.test.js",
     "coverage": "tap --check-coverage --coverage-report=clover",
     "lint": "eslint .",
-    "preflight": "tap && eslint ."
+    "preflight": "tap && eslint .",
+    "build": "ncc build main.js --license licenses.txt",
+    "debug": "node debug/debug.js"
   },
   "dependencies": {
     "@actions/core": "^1.6.0",

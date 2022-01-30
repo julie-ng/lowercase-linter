@@ -1,9 +1,8 @@
 'use strict'
 
 const tap = require('tap')
-const colors = require('./ui/colors')
+// const colors = require('./ui/colors')
 const suggestion = require('./suggestion')
-
 
 tap.test('suggestion()', t => {
 	tap.test('single file', t => {
@@ -42,7 +41,7 @@ tap.test('suggestion()', t => {
 		t.equal(s.original.parentDir, '/foo/')
 		t.equal(s.name, 'bar.md')
 		t.equal(s.fullpath, '/foo/bar.md')
-		t.equal(s.fullpathColored, colors.dim('/foo/') + colors.cyan('bar.md'))
+		// t.equal(s.fullpathColored, colors.dim('/foo/') + colors.cyan('bar.md'))
 		t.end()
 	})
 

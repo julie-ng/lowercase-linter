@@ -2,5 +2,6 @@
 node_modules/
 !fixtures/node_modules/
 .nyc_output/
+debug/
 coverage
 cc-test-reporter
