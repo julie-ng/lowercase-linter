@@ -11,12 +11,13 @@ try {
 	const results = linter.run({ path: path })
 
   if (results.errors.length > 0) {
-    core.setOutput('errors', JSON.stringify(err.invalidNames))
-    core.setOutput('suggestion', err.body)
-    core.setFailed(err.message)
+    core.setOutput('errors', JSON.stringify(results.errors))
+    core.setOutput('suggestions', results.results)
+    // core.setFailed(err.message)
+    process.exit(1)
   } else {
     core.setOutput('errors', '[]')
-    core.setOutput('suggestion', '')
+    core.setOutput('suggestions', '')
   }
 } catch (err) {
   console.log(err)

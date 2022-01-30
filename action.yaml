@@ -11,11 +11,9 @@ inputs:
     required: false
     default: ''
 outputs:
-  time:
-    description: 'Time of runs'
   errors:
     description: 'Array of files with mixed case and suggested renames in JSON.'
-  suggestion:
+  suggestions:
     description: 'Multi-line string with list of suggested filename changes '
 runs:
   using: 'node16'
