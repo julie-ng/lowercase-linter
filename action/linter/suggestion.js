@@ -1,23 +1,19 @@
 'use strict'
 
-const colors = require('./ui/colors')
-const util = require('./util')
-
-const yellowArrow = colors.yellow(' ==> ')
+const strHelper = require('./../helpers/string-helper')
+const caseHelper = require('./../helpers/case-helper')
 
 function suggestion (filepath = '') {
-	const noTrailingSlash = util.noTrailingSlash(filepath)
+	const noTrailingSlash = strHelper.noTrailingSlash(filepath)
 
 	const original = noTrailingSlash.split('/')
 	const originalName = original.pop()
 	const originalDir = original.join('/') + '/'
 
-	const suggested = util.camelCaseToDash(noTrailingSlash)
+	const suggested = caseHelper.toKebab(noTrailingSlash)
 	const parts = suggested.split('/')
 	const sgName = parts.pop()
 	const sgDir = parts.join('/') + '/'
-	const sgNameColored = colors.cyan(sgName)
-	const sgDirColored = colors.dim(sgDir)
 
 	return {
 		original: {
@@ -28,8 +24,6 @@ function suggestion (filepath = '') {
 		name: sgName,
 		parentDir: sgDir,
 		fullpath: suggested,
-		fullpathColored: sgDirColored + sgNameColored,
-		asText: noTrailingSlash + yellowArrow + sgDirColored + sgNameColored,
 	}
 }
 

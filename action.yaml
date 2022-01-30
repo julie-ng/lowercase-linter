@@ -6,6 +6,10 @@ inputs:
     description: 'Path to scan for mixed case filenames. Will search subfolders too. Defaults to `.`'
     required: false
     default: '.'
+  repo-token:
+    description: repo workflow token
+    required: false
+    default: ''
 outputs:
   time:
     description: 'Time of runs'

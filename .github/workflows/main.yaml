@@ -19,16 +19,17 @@ jobs:
       - name: Run Action
         uses: ./
         id: run_action
-        continue-on-error: true
+        # continue-on-error: true
         with:
           path: 'fixtures/'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Test Outputs
-        run: |
-          echo "${{ steps.run_action.outputs.time }}"
-          echo "${{ steps.run_action.outputs.errors }}"
-          echo "${{ steps.run_action.outputs.suggestion }}"
+      # - name: Test Outputs
+      #   run: |
+      #     echo "${{ steps.run_action.outputs.time }}"
+      #     echo "${{ steps.run_action.outputs.errors }}"
+      #     echo "${{ steps.run_action.outputs.suggestion }}"
 
-      - name: Confirm Fixtures Failed
-        run: |
-          if [[ ${{ steps.run_action.outcome }} == 'failure' ]]; then exit 0; else exit 1; fi
+      # - name: Confirm Fixtures Failed
+      #   run: |
+      #     if [[ ${{ steps.run_action.outcome }} == 'failure' ]]; then exit 0; else exit 1; fi

@@ -1,16 +1,17 @@
 'use strict'
 const fs = require('fs')
 const path = require('path')
-const ui = require('./ui')
-const caseHelper = require('./util')
+
+const caseHelper = require('./../helpers/case-helper')
 const exceptions = require('./exceptions')
+const suggestFix = require('./suggestion')
 
 /**
- * Checks a single file for mixed case
+ * Checks a single path for mixed case
  *
- * @param {String} dir
- * @param {String} f
- * @returns {Object}
+ * @param {String} dir - parent directory of file
+ * @param {String} f - filename
+ * @returns {Object} result
  */
 function filecheck (dir, f) {
 	const fullpath = path.join(dir, f)
@@ -18,15 +19,11 @@ function filecheck (dir, f) {
 	const hasMixedCase = caseHelper.hasMixed(fullpath)
 	const isValid = hasMixedCase === false || exceptions.alwaysValid.includes(f)
 
-	const icon = isValid
-		? ui.okIcon
-		: ui.errorIcon
-
 	return {
-		path: fullpath,
+		checkedPath: fullpath,
+		suggestedPath: suggestFix(fullpath).fullpath,
 		isDirectory: stats.isDirectory(),
 		isValid: isValid,
-		toStr: ' ' + icon + ' ' + fullpath,
 		hasMixedCase: hasMixedCase,
 		shouldDeepCheck: stats.isDirectory() && !exceptions.alwaysSkip.includes(f)
 	}
