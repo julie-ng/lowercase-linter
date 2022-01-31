@@ -61,7 +61,7 @@ function print (key, params = {}) {
 			break
 
 		case 'success':
-			o = results.success
+			o = messages.success
 			break
 
 		case 'suggestions':

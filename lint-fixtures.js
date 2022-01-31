@@ -3,7 +3,7 @@
 const linter = require('./action/')
 
 try {
-	const results = linter.run({ path: 'fixtures/' })
+	const results = linter.run({ path: 'fixtures/always-passing' })
 	if (results.errors.length > 0) {
 		process.exit(1)
 	}
