@@ -28,7 +28,7 @@ A GitHub Action to fail builds whos files have both upper and lower case mixed, 
 - name: `errors`    
 	description: Array of files with mixed case and suggested renames in JSON.
 
-- name: `suggestion`   
+- name: `suggestions`   
 	description: Multi-line string with list of suggested filename changes 
 
 For details, see [action.yaml](./action.yaml)
