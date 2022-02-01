@@ -2,14 +2,16 @@
 
 const linter = require('./action/')
 
+const toLint = 'fixtures/'
+
 try {
-	const results = linter.run({ path: 'fixtures/always-passing' })
-	if (results.errors.length > 0) {
+	const results = linter.run({ path: toLint })
+	if (results.errors && results.errors.length > 0) {
+		console.log(results.errors)
 		process.exit(1)
 	}
 } catch (err) {
-	console.log(JSON.stringify(err.invalidNames))
-	console.log(err.body)
-	process.exit(1)
+	console.log('Error running linter.')
+	console.log(err)
 }
 

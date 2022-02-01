@@ -14,7 +14,9 @@ outputs:
   errors:
     description: 'Array of files with mixed case and suggested renames in JSON.'
   suggestions:
-    description: 'Multi-line string with list of suggested filename changes '
+    description: 'Multi-line string with list of suggested filename changes.'
+  comment-url:
+    description: 'URL of the comment posted to Pull Request (if errors were found).'
 runs:
   using: 'node16'
   main: 'dist/index.js'
