@@ -18,6 +18,11 @@ const addCommentToPR = async function (errors) {
 	// const testIssue = '1' // for testing
 	const token = core.getInput('repo-token')
 	const context = github.context.payload
+
+	console.log('********************')
+	console.log(context)
+	console.log('********************')
+
 	const isPullRequest = context.pull_request !== null
 
 	if (isPullRequest) {
