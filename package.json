@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "tap",
-    "test-dev": "tap action/linter/string-helper.test.js",
+    "test-dev": "tap action/github/markdown.test.js",
     "coverage": "tap --check-coverage --coverage-report=clover",
     "lint": "eslint .",
     "preflight": "tap && eslint .",
