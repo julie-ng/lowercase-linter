@@ -241,7 +241,8 @@ const markdown = __nccwpck_require__(8885)
  * @returns {String} url of the comment, including hash to scroll to that point on page.
  */
 const addCommentToPR = async function (token, errors) {
-	// console.log(errors)
+	console.log('addCommentToPR')
+	console.log(errors)
 	// const testIssue = '1' // for testing
 
 	const context = github.context.payload
@@ -482,7 +483,7 @@ async function run (opts = {}) {
 		const errors = results.filter((m) => m.isValid === false)
 		let commentUrl = ''
 
-		if (errors.length > 0) {
+		if (errors && errors.length > 0) {
 			// console.log(errors)
 			ui.cli.print('suggestions', { errors: errors })
 			const token = core.getInput('repo-token')
@@ -490,7 +491,7 @@ async function run (opts = {}) {
 				throw 'Missing GitHub token to post comment to Pull Request'
 			} else {
 				commentUrl = await postErrorsToPullRequest(errors)
-				console.log('Added')
+				console.log('Added Comment')
 			}
 		} else {
 			ui.cli.print('success')
@@ -683,7 +684,7 @@ module.exports = suggestion
 // lazy lodash
 const _ = {
   last: function (arry) {
-    return arry[arry.length-1]
+    return (arry.length > 0) ? arry[arry.length-1] : 0
   }
 }
 
