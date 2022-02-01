@@ -9,7 +9,7 @@ on:
     paths:
       - 'dist/**.js' # otherwise there's no real change in action
 jobs:
-  test_action:
+  passing_scenarios:
     runs-on: ubuntu-latest
     name: 🟢 Passing use case
     steps:
@@ -27,7 +27,7 @@ jobs:
         run: echo "${{ steps.run_action.outputs }}"
 
 
-  test_action:
+  failing_scenarios:
     runs-on: ubuntu-latest
     name: 🔴 Failing use case
     steps:
