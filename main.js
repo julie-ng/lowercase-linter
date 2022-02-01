@@ -7,7 +7,7 @@ try {
   const path = core.getInput('path')
 	const results = linter.run({ path: path })
 
-  if (results.errors.length > 0) {
+  if (results.errors && results.errors.length > 0) {
     core.setOutput('errors', JSON.stringify(results.errors))
     core.setOutput('suggestions', results.results)
     core.setOutput('comment-url', results.commentUrl)
