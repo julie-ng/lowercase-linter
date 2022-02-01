@@ -25,6 +25,7 @@ async function run (opts = {}) {
 	ui.cli.print('start', { path: toLint })
 
 	console.log('Hello - change to trigger Workflow run. Remember to do ncc builds too!')
+	console.log('Hello - 2')
 
 	try {
 		const results = lint({ path: toLint })
