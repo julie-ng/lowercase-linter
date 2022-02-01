@@ -3,7 +3,7 @@
 // lazy lodash
 const _ = {
   last: function (arry) {
-    return arry[arry.length-1]
+    return (arry.length > 0) ? arry[arry.length-1] : 0
   }
 }
 

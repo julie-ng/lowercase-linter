@@ -13,7 +13,8 @@ const markdown = require('./markdown')
  * @returns {String} url of the comment, including hash to scroll to that point on page.
  */
 const addCommentToPR = async function (token, errors) {
-	// console.log(errors)
+	console.log('addCommentToPR')
+	console.log(errors)
 	// const testIssue = '1' // for testing
 
 	const context = github.context.payload

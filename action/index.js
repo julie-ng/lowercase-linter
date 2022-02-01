@@ -33,7 +33,7 @@ async function run (opts = {}) {
 		const errors = results.filter((m) => m.isValid === false)
 		let commentUrl = ''
 
-		if (errors.length > 0) {
+		if (errors && errors.length > 0) {
 			// console.log(errors)
 			ui.cli.print('suggestions', { errors: errors })
 			const token = core.getInput('repo-token')
@@ -41,7 +41,7 @@ async function run (opts = {}) {
 				throw 'Missing GitHub token to post comment to Pull Request'
 			} else {
 				commentUrl = await postErrorsToPullRequest(errors)
-				console.log('Added')
+				console.log('Added Comment')
 			}
 		} else {
 			ui.cli.print('success')
