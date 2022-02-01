@@ -6,6 +6,10 @@ on:
       - 'dev'
       - 'main'
       - 'test-pr'
+    pull_request:
+      branches:
+        - 'main'
+        - 'dev'
     paths:
       - 'dist/**.js' # otherwise there's no real change in action
 jobs:
