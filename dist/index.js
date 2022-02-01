@@ -241,7 +241,7 @@ const markdown = __nccwpck_require__(8885)
  * @returns {String} url of the comment, including hash to scroll to that point on page.
  */
 const addCommentToPR = async function (token, errors) {
-	console.log('addCommentToPR')
+	console.log('addCommentToPR()')
 	console.log(errors)
 	// const testIssue = '1' // for testing
 
@@ -470,45 +470,46 @@ const ui = __nccwpck_require__(4662)
  * @return {Array} errors - list of objectd with same properties as above.
  */
 async function run (opts = {}) {
-// function run (opts = {}) {
+	// console.log('Hello - change to trigger Workflow run. Remember to do ncc builds too!')
+	// console.log('Hello - 3')
 	const toLint = opts.path || '.'
+
 	ui.cli.print('start', { path: toLint })
 
-	console.log('Hello - change to trigger Workflow run. Remember to do ncc builds too!')
-	console.log('Hello - 3')
-
 	try {
-		const results = lint({ path: toLint })
-		// console.log(results)
-		const errors = results.filter((m) => m.isValid === false)
-		let commentUrl = ''
+		const linted = lint({ path: toLint })
+		const errors = linted.filter((m) => m.isValid === false)
 
-		if (errors && errors.length > 0) {
-			// console.log(errors)
-			ui.cli.print('suggestions', { errors: errors })
-			const token = core.getInput('repo-token')
-			if (token === '') {
-				throw 'Missing GitHub token to post comment to Pull Request'
-			} else {
-				commentUrl = await postErrorsToPullRequest(errors)
-				console.log('Added Comment')
+		if (errors.length === 0) {
+			ui.cli.print('success')
+			return {
+				all: linted,
+				errors: [],
+				commentUrl: ''
 			}
 		} else {
-			ui.cli.print('success')
-		}
+			ui.cli.print('suggestions', { errors: errors })
+			const commentUrl = await addComment(linted, errors)
 
-		return {
-			errors,
-			all: results,
-			commentUrl
+			return {
+				all: linted,
+				errors: errors,
+				commentUrl: commentUrl
+			}
 		}
 	} catch (err) {
-		console.error('Could not lint path')
+		console.error(`Could not lint path ${toLint}`)
 		console.error(err)
 		process.exit(1)
 	}
+}
 
-	return 'hello world'
+async function addComment (linted, errors) {
+	if (process.env.NODE_ENV === 'local') {
+		return 'local-test-has-no-url'
+	} else {
+		return await postErrorsToPullRequest(errors)
+	}
 }
 
 module.exports = {
