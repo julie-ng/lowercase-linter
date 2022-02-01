@@ -10,24 +10,39 @@ on:
 jobs:
   test_action:
     runs-on: ubuntu-latest
-    name: Test lowercsae-only GitHub Action
+    name: 🟢 Passing use case
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # this repo
       - name: Run Action
-        uses: ./
+        uses: ./ # this repo
+        id: run_action
+        with:
+          path: 'fixtures/always-passing'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Debug Outputs
+        run: echo "${{ steps.run_action.outputs }}"
+
+
+  test_action:
+    runs-on: ubuntu-latest
+    name: 🔴 Failing use case
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Run Action
+        uses: ./ # this repo
         id: run_action
         continue-on-error: true
         with:
           path: 'fixtures/'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Test Outputs
-        run: |
-          echo "${{ steps.run_action.outputs.errors }}"
-          echo "${{ steps.run_action.outputs.suggestions }}"
+      - name: Debug Outputs
+        run: echo "${{ steps.run_action.outputs }}"
 
       - name: Confirm Fixtures Failed
         run: |
