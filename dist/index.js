@@ -229,7 +229,7 @@ module.exports = {
 
 
 const github = __nccwpck_require__(4425)
-// const core = require('@actions/core')
+const core = __nccwpck_require__(9678)
 const messages = __nccwpck_require__(5038)
 const markdown = __nccwpck_require__(8885)
 
@@ -237,14 +237,14 @@ const markdown = __nccwpck_require__(8885)
  * Adds a Comment to Pull Request
  * with list of files that are invalid
  *
- * @param {*} errors
+ * @param {Array} errors
  * @returns {String} url of the comment, including hash to scroll to that point on page.
  */
-const addCommentToPR = async function (token, errors) {
+const addCommentToPR = async function (errors) {
 	console.log('addCommentToPR()')
 	console.log(errors)
 	// const testIssue = '1' // for testing
-
+	const token = core.getInput('repo-token')
 	const context = github.context.payload
 	const isPullRequest = context.pull_request !== null
 
