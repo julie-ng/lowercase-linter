@@ -482,7 +482,7 @@ async function run (opts = {}) {
 	ui.cli.print('start', { path: toLint })
 
 	try {
-		const shouldComment = core.getInput('add-suggestions-to-pr')
+		const shouldComment = core.getInput('add-suggestions-to-pr') || process.env.CASE_LINTER_COMMENT_ON_PR === 'true'
 		const linted = lint({ path: toLint })
 		const errors = linted.filter((m) => m.isValid === false)
 		let results = {
@@ -9176,16 +9176,16 @@ const linter = __nccwpck_require__(6582)
 
 async function run () {
   try {
-    const path = core.getInput('path')
+    const path = core.getInput('path') || process.env.CASE_LINTER_PATH || '.'
+
     const results = await linter.run({ path: path })
     core.setOutput('linted', results.all)
-    console.log('results')
-    console.log(results)
+    // console.log('results')
+    // console.log(results)
 
     if (results.errors && results.errors.length > 0) {
       core.setOutput('errors', JSON.stringify(results.errors))
-      // core.setOutput('comment-url', results.commentUrl)
-      core.setOutput('comment-url', 'Should have errors here in failing case')
+      core.setOutput('comment-url', results.commentUrl)
       process.exit(1)
     } else {
       core.setOutput('errors', '[]')
