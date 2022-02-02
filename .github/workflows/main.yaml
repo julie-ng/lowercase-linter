@@ -24,7 +24,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug Outputs
-        run: echo ${{ toJSON(steps.run_passing.outputs) }}
+        run: echo "${{ toJSON(steps.run_passing.outputs }}"
 
   failing_scenarios:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug Outputs
-        run: echo ${{ toJSON(steps.run_failing.outputs) }}
+        run: echo "${{ toJSON(steps.run_failing.outputs) }}"
 
       - name: Confirm Fixtures Failed
         run: |
