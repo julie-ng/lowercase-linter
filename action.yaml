@@ -23,4 +23,5 @@ outputs:
     description: 'URL of the comment posted to Pull Request (if errors were found).'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'main.js'
+  # main: 'dist/index.js'
