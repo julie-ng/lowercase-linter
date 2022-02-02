@@ -482,26 +482,27 @@ async function run (opts = {}) {
 	ui.cli.print('start', { path: toLint })
 
 	try {
+		const shouldComment = core.getInput('add-suggestions-to-pr')
 		const linted = lint({ path: toLint })
 		const errors = linted.filter((m) => m.isValid === false)
+		let results = {
+			all: linted,
+			errors: [],
+			commentUrl: ''
+		}
 
 		if (errors.length === 0) {
 			ui.cli.print('success')
-			return {
-				all: linted,
-				errors: [],
-				commentUrl: ''
-			}
 		} else {
 			ui.cli.print('suggestions', { errors: errors })
-			const commentUrl = await addComment(linted, errors)
-
-			return {
-				all: linted,
-				errors: errors,
-				commentUrl: commentUrl
+			results.errors = errors
+			if (shouldComment) {
+				results.commentUrl = await addComment(linted, errors)
 			}
 		}
+
+		return results
+
 	} catch (err) {
 		console.error(`Could not lint path ${toLint}`)
 		console.error(err)
