@@ -476,7 +476,7 @@ const ui = __nccwpck_require__(4662)
  */
 async function run (opts = {}) {
 	// console.log('Hello - change to trigger Workflow run. Remember to do ncc builds too!')
-	console.log('Hello - 4')
+	console.log('Hello - 5')
 	const toLint = opts.path || '.'
 
 	ui.cli.print('start', { path: toLint })
