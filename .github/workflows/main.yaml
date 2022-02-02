@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run Action
+      - name: Lint Valid Fixtures
         uses: ./ # this repo
         id: run_passing
         with:
@@ -24,8 +24,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug Outputs
-        run: echo "${{ steps.run_passing.outputs }}"
-
+        run: echo ${{ toJSON(steps.run_passing.outputs) }}
 
   failing_scenarios:
     runs-on: ubuntu-latest
@@ -34,7 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run Action
+      - name: Lint Invalid Fixtures
         uses: ./ # this repo
         id: run_failing
         continue-on-error: true
@@ -43,8 +42,8 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug Outputs
-        run: echo "${{ steps.run_failing.outputs }}"
+        run: echo ${{ toJSON(steps.run_failing.outputs) }}
 
       - name: Confirm Fixtures Failed
         run: |
-          if [[ ${{ steps.run_action.outcome }} == 'failure' ]]; then exit 0; else exit 1; fi
+          if [[ ${{ steps.run_failing.outcome }} == 'failure' ]]; then exit 0; else exit 1; fi

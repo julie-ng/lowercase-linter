@@ -17,8 +17,8 @@ inputs:
 outputs:
   errors:
     description: 'Array of files with mixed case and suggested renames in JSON.'
-  suggestions:
-    description: 'Multi-line string with list of suggested filename changes.'
+  linted:
+    description: 'List of files linted.'
   comment-url:
     description: 'URL of the comment posted to Pull Request (if errors were found).'
 runs:

@@ -9177,15 +9177,14 @@ const linter = __nccwpck_require__(6582)
 try {
   const path = core.getInput('path')
 	const results = linter.run({ path: path })
+  core.setOutput('linted', results.all)
 
   if (results.errors && results.errors.length > 0) {
     core.setOutput('errors', JSON.stringify(results.errors))
-    core.setOutput('suggestions', results.results)
     core.setOutput('comment-url', results.commentUrl)
     process.exit(1)
   } else {
     core.setOutput('errors', '[]')
-    core.setOutput('suggestions', '')
     core.setOutput('comment-url', '')
   }
 } catch (err) {
