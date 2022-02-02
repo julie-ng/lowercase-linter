@@ -6,10 +6,6 @@ on:
       - 'dev'
       - 'main'
       - 'test-pr'
-    pull_request:
-      branches:
-        - 'main'
-        - 'dev'
     paths:
       - 'dist/**.js' # otherwise there's no real change in action
 jobs:
@@ -22,13 +18,13 @@ jobs:
 
       - name: Run Action
         uses: ./ # this repo
-        id: run_action
+        id: run_passing
         with:
           path: 'fixtures/always-passing'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug Outputs
-        run: echo "${{ steps.run_action.outputs }}"
+        run: echo "${{ steps.run_passing.outputs }}"
 
 
   failing_scenarios:
@@ -40,14 +36,14 @@ jobs:
 
       - name: Run Action
         uses: ./ # this repo
-        id: run_action
+        id: run_failing
         continue-on-error: true
         with:
           path: 'fixtures/'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug Outputs
-        run: echo "${{ steps.run_action.outputs }}"
+        run: echo "${{ steps.run_failing.outputs }}"
 
       - name: Confirm Fixtures Failed
         run: |

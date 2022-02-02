@@ -6,6 +6,10 @@ inputs:
     description: 'Path to scan for mixed case filenames. Will search subfolders too. Defaults to `.`'
     required: false
     default: '.'
+  add-suggestions-to-pr:
+    description: 'If file name errors are found, suggested fixes are posted to the Pull Request'
+    required: true
+    default: false
   repo-token:
     description: repo workflow token
     required: false

@@ -6,7 +6,7 @@ const colors = require('./action/cli/colors')
 const failingPath = 'fixtures/'
 const passingPath = 'fixtures/always-passing'
 
-async function run() {
+async function run () {
 	const code1 = await _testFixtures(passingPath, true)
 	const code2 = await _testFixtures(failingPath, false)
 	if (code1 + code2 !== 0) {
@@ -17,7 +17,7 @@ async function run() {
 
 run()
 
-async function _testFixtures(path, expectPass) {
+async function _testFixtures (path, expectPass) {
 	let exitCode = 0
 	let msg = ''
 
