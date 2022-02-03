@@ -1,6 +1,6 @@
 name: 'lowercase-only'
 author: Julie Ng
-description: 'A GitHub Action to fail builds whos files have both upper and lower case mixed, i.e. camelCase to prevent filename conflicts and broken deployments.'
+description: 'Lint repos for mixed case names, i.e. camelCase to prevent filename conflicts and broken deployments to Linux.'
 inputs:
   path:
     description: 'Path to scan for mixed case filenames. Will search subfolders too. Defaults to `.`'
