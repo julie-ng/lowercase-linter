@@ -247,9 +247,9 @@ const addCommentToPR = async function (errors) {
 	const token = core.getInput('repo-token')
 	const context = github.context.payload
 
-	console.log('********************')
-	console.log(context)
-	console.log('********************')
+	// console.log('********************')
+	// console.log(context)
+	// console.log('********************')
 
 	const isPullRequest = context.pull_request !== null
 
@@ -266,8 +266,8 @@ const addCommentToPR = async function (errors) {
 			issue_number,
 			body,
 		})
-		console.log(result)
-		return result.html_url
+		// console.log(result)
+		return result.data.html_url
 	} else {
 		console.log('Missung GitHub token or not a Pull Request - nothing to do.')
 	}
@@ -327,8 +327,7 @@ module.exports = {
 const commentInro = `
 ### Error: Mixed case filenames found
 
-This can cause problems because git and Linux are case sensistive. Please
-rename the following to ***lowercase-with-dashes***:
+This can cause problems because git and Linux are case sensistive. Please rename the following to ***lowercase-with-dashes***:
 `
 const rename = 'Please rename the files, commit and push again.'
 
@@ -482,7 +481,7 @@ async function run (opts = {}) {
 	ui.cli.print('start', { path: toLint })
 
 	try {
-		const shouldComment = core.getInput('add-suggestions-to-pr') || process.env.CASE_LINTER_COMMENT_ON_PR === 'true'
+		const shouldComment = core.getInput('add-suggestions-to-pr') === 'true' || process.env.CASE_LINTER_COMMENT_ON_PR === 'true'
 		const linted = lint({ path: toLint })
 		const errors = linted.filter((m) => m.isValid === false)
 		let results = {

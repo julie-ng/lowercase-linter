@@ -19,9 +19,9 @@ const addCommentToPR = async function (errors) {
 	const token = core.getInput('repo-token')
 	const context = github.context.payload
 
-	console.log('********************')
-	console.log(context)
-	console.log('********************')
+	// console.log('********************')
+	// console.log(context)
+	// console.log('********************')
 
 	const isPullRequest = context.pull_request !== null
 
@@ -38,8 +38,8 @@ const addCommentToPR = async function (errors) {
 			issue_number,
 			body,
 		})
-		console.log(result)
-		return result.html_url
+		// console.log(result)
+		return result.data.html_url
 	} else {
 		console.log('Missung GitHub token or not a Pull Request - nothing to do.')
 	}

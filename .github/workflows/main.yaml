@@ -8,7 +8,6 @@ on:
       - 'dev'
   push:
     branches:
-      - 'dev'
       - 'main'
       - 'test-pr'
     # paths:
@@ -52,3 +51,7 @@ jobs:
       - name: Confirm Fixtures Failed
         run: |
           if [[ ${{ steps.run_failing.outcome }} == 'failure' ]]; then exit 0; else exit 1; fi
+
+      # - name: TODO - confirm PR posted???
+      #   run: |
+      #     ???
