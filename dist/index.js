@@ -9175,7 +9175,7 @@ var __webpack_exports__ = {};
 
 const core = __nccwpck_require__(9678)
 const linter = __nccwpck_require__(6582)
-
+console.log('1')
 async function run () {
   try {
     const path = core.getInput('path') || process.env.CASE_LINTER_PATH || '.'
