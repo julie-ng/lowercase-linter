@@ -27,7 +27,7 @@ async function run (opts = {}) {
 	ui.cli.print('start', { path: toLint })
 
 	try {
-		const shouldComment = core.getInput('add-suggestions-to-pr') === 'true' || process.env.CASE_LINTER_COMMENT_ON_PR === 'true'
+		const shouldComment = core.getInput('pr-comment') === 'true' || process.env.CASE_LINTER_COMMENT_ON_PR === 'true'
 		const linted = lint({ path: toLint })
 		const errors = linted.filter((m) => m.isValid === false)
 		let results = {

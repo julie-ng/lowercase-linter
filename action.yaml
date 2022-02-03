@@ -6,7 +6,7 @@ inputs:
     description: 'Path to scan for mixed case filenames. Will search subfolders too. Defaults to `.`'
     required: false
     default: '.'
-  add-suggestions-to-pr:
+  pr-comment:
     description: 'If file name errors are found, suggested fixes are posted to the Pull Request'
     required: true
     default: false
