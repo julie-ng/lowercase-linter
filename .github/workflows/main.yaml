@@ -9,7 +9,7 @@ on:
   push:
     branches:
       - 'main'
-      - 'test-pr'
+      # - 'test-pr'
     # paths:
     #   - 'dist/**.js' # otherwise there's no real change in action
 jobs:
@@ -46,8 +46,8 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pr-comment: true
 
-      - name: Debug Outputs
-        run: echo "${{ steps.run_failing.outputs }}"
+      - name: Comment URL
+        run: echo "${{ steps.run_failing.outputs.comment-url }}"
 
       - name: Confirm Fixtures Failed
         run: |
