@@ -47,7 +47,7 @@ jobs:
           pr-comment: true
 
       - name: Debug Outputs
-        run: echo "${{ toJSON(steps.run_failing.outputs) }}"
+        run: echo "${{ steps.run_failing.outputs }}"
 
       - name: Confirm Fixtures Failed
         run: |
