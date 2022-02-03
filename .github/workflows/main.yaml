@@ -1,13 +1,18 @@
 name: run-action
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - 'main'
+      - 'dev'
   push:
     branches:
       - 'dev'
       - 'main'
       - 'test-pr'
-    paths:
-      - 'dist/**.js' # otherwise there's no real change in action
+    # paths:
+    #   - 'dist/**.js' # otherwise there's no real change in action
 jobs:
   passing_scenarios:
     runs-on: ubuntu-latest
