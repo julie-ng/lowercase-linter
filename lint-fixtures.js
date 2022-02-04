@@ -12,7 +12,6 @@ async function run () {
 	if (code1 + code2 !== 0) {
 		process.exit(1)
 	}
-	// console.log('code1', code1)
 }
 
 run()
