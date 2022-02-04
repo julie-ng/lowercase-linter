@@ -2,7 +2,7 @@
 
 const core = require('@actions/core')
 const linter = require('./action/')
-console.log('1')
+
 async function run () {
   try {
     const path = core.getInput('path') || process.env.CASE_LINTER_PATH || '.'
