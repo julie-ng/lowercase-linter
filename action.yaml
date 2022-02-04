@@ -21,6 +21,9 @@ outputs:
     description: 'List of files linted.'
   comment-url:
     description: 'URL of the comment posted to Pull Request (if errors were found).'
+branding:
+  icon: 'check-circle'
+  color: 'yellow'
 runs:
   using: 'node16'
   main: 'dist/index.js'
