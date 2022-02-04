@@ -81,3 +81,7 @@ If you check the output, the action will also make suggestions using the [kebab-
 | `Foo/UppercaseExtension.MD` | `foo/uppercase-extension.md` |
 | `FooBar/cat.txt` | `foobar/cat.txt` |
 | `Foo` | `foo` |
+
+## License
+
+MIT
