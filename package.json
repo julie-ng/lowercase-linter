@@ -1,6 +1,6 @@
 {
   "name": "action-lowercase-only",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Julie Ng <me@julie.io>",
   "main": "main.js",
   "description": "A GitHub Action to fail builds whos files have both upper and lower case mixed, i.e. camelCase.",

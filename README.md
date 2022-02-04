@@ -22,16 +22,13 @@ steps:
     uses: actions/checkout@v2
 
   - name: Lint Filenames
-    uses: julie-ng/lowercase-only@main
+    uses: julie-ng/lowercase-only@v1
     id: lint_filenames
     continue-on-error: true
     with:
       path: '.'
-
-  - name: Reference Outputs
-    run: |          
-      echo "${{ steps.lint_filenames.outputs.errors }}"
-      echo "${{ steps.lint_filenames.outputs.suggestion }}"
+      pr-comment: true
+      repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Inputs
