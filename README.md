@@ -47,13 +47,13 @@ steps:
   
 ## Outputs
 
-- ### `errors`    
+- #### `errors`    
   Array - list of files with mixed case and suggested renames in JSON.
 
-- ### `linted`   
+- #### `linted`   
   Array - list of all files that were checked for mixed case names.
 
-- ### `comment-url`  
+- #### `comment-url`  
   String - URL of the comment posted to Pull Request (if errors were found).
 
 ## Why is Case Sensitivity a Challenge?
