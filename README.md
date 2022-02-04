@@ -9,64 +9,61 @@ A GitHub Action to fail builds whos files have both upper and lower case mixed, 
 ### Features
 
 - Suggests kebab-case fixes of problem filenames for quicker fixing
-- No dependencies* - for faster CI builds and avoids supply chain security issues.
+- No dependencies* - to avoid supply chain security issues.
 - Ignores common mixed case files that usually won't "break" builds, e.g. `CONTRIBUTING.md`
 
-*Note: [GitHub Actions Toolkit](https://github.com/actions/toolkit) is still required and used for JavaScript based actions. 
+*Note: [GitHub Actions Toolkit](https://github.com/actions/toolkit) is still required for JavaScript based actions. 
 
-## How to Use
-
-### Inputs
-
-- name: `path`  
-  required: `false`  
-	default: `.`  
-	description: Path to scan for mixed case filenames. Will search subfolders too.	
-
-### Outputs
-
-- name: `errors`    
-	description: Array of files with mixed case and suggested renames in JSON.
-
-- name: `suggestions`   
-	description: Multi-line string with list of suggested filename changes 
-
-For details, see [action.yaml](./action.yaml)
-
-### Example usage
+### Example Usage
 
 ```yaml
-on: push
+steps:
+  - name: Checkout
+    uses: actions/checkout@v2
 
-jobs:
-  lint:
-    runs-on: ubuntu-latest    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  - name: Lint Filenames
+    uses: julie-ng/lowercase-only@main
+    id: lint_filenames
+    continue-on-error: true
+    with:
+      path: '.'
 
-      - name: Lint Filenames
-        uses: julie-ng/lowercase-only@main
-        id: lint_filenames
-        continue-on-error: true
-        with:
-          path: '.'
-
-      - name: Reference Outputs
-        run: |          
-          echo "${{ steps.lint_filenames.outputs.errors }}"
-          echo "${{ steps.lint_filenames.outputs.suggestion }}"
+  - name: Reference Outputs
+    run: |          
+      echo "${{ steps.lint_filenames.outputs.errors }}"
+      echo "${{ steps.lint_filenames.outputs.suggestion }}"
 ```
 
-Note: as of 29 January 2022, this action is not released/versioned.
+## Inputs
 
----
+- #### `path` (optional)  
+  Path to scan for mixed case filenames. Will search subfolders too.  
+  Default: `.`
 
-## Case Sensitivity is a Challenge
+- #### `pr-comment`  (optional)
+  If file name errors are found, suggested fixes are posted to the Pull Request.  
+  Default: `false`
+
+- #### `repo-token`  (optional)
+  GitHub Action workflow token needed to add comments to pull requests.  
+  Default: `''`
+  
+## Outputs
+
+- ### `errors`    
+  Array - list of files with mixed case and suggested renames in JSON.
+
+- ### `linted`   
+  Array - list of all files that were checked for mixed case names.
+
+- ### `comment-url`  
+  String - URL of the comment posted to Pull Request (if errors were found).
+
+## Why is Case Sensitivity a Challenge?
 
 If a system is case sensitive, then `README.md` and `readme.md` can co-exist. 
 
-If a system is not case sensitive, then `Logo.png` can be referenced _both_ as its actual mixed case name _and_ all lowercase `logo.png`. So if you have `<img src="logo.png">` but your image is actually named `Logo.png`, it will work locally but users will see a broken image when deploy to a Linux based server.
+If a system is not case sensitive, then `Logo.png` can be referenced _both_ as its actual mixed case name _and_ all lowercase `logo.png`. So if you have `<img src="logo.png">` but your image is actually named `Logo.png`, it will work *locally* but users will see a broken image when deployed to a Linux based server.
 
 | System | Case Sensistive |
 |:--|:--|
@@ -75,7 +72,7 @@ If a system is not case sensitive, then `Logo.png` can be referenced _both_ as i
 | Git | true |
 | Linux | true |
 
-If you're collaborating and someone checks in a file with mixed case, it can be a nightmare to resolve because you have to do it in 2 places - OS and git. And if people don't keep their branches up to date, the mixed files come back like a recurring nightware.
+Not deploying? Still a problem for colleagues. If you're collaborating and someone checks in a file with mixed case, it can be a nightmare to resolve because you have to do it in 2 places - OS and git. And if people don't keep their branches up to date, the mixed files come back like a recurring nightware 😵‍💫
 
 ### kebab-case suggestions
 
@@ -87,44 +84,3 @@ If you check the output, the action will also make suggestions using the [kebab-
 | `Foo/UppercaseExtension.MD` | `foo/uppercase-extension.md` |
 | `FooBar/cat.txt` | `foobar/cat.txt` |
 | `Foo` | `foo` |
-
-## Contributing
-
-To contribute, ensure tests (using [tap](https://www.npmjs.com/package/tap) testing library) and linter pass before making a Pull Request.
-
-
-### Tests
-
-To test logic
-
-```
-npm run test
-```
-
-To test output, which will check against `fixtures/` directory. You can eyeball if the results are correct.
-
-```
-node ./test.js
-```
-
-### Lint
-
-See configuration at [`.eslintrc`](./.eslintrc)
-
-```
-npm run lint
-```
-
-### Publishing Workflow
-
-To avoid checking in `node_modules` per [GitHub Actions Docs](https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action). Install [@vercel/ncc](https://github.com/vercel/ncc) if you don't already have it on your local machine.
-
-```
-npm i -g @vercel/ncc
-```
-
-Then compile everything into single [`dist/index.js`](./dist/index.js) file.
-
-```
-ncc build main.js --license licenses.txt
-```
