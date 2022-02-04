@@ -10,6 +10,10 @@ const ALWAYS_VALID = [
   'LICENSE.md',
 	'README.md',
   'SECURITY.md',
+  'Dockerfile',
+  'CHANGELOG.md',
+  'Changelog.md',
+  'Readme.md'
 ]
 
 module.exports = {
