@@ -1,4 +1,4 @@
-name: 'lowercase-only'
+name: 'lowercase-linter'
 author: Julie Ng
 description: 'Lint repos for mixed case names, i.e. camelCase to prevent filename conflicts and broken deployments to Linux.'
 inputs:
