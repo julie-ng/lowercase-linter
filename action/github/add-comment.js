@@ -19,11 +19,13 @@ const addCommentToPR = async function (errors) {
 	const token = core.getInput('repo-token')
 	const context = github.context.payload
 
-	// console.log('********************')
-	// console.log(context)
-	// console.log('********************')
+	if (process.env.CASE_LINTER_DEBUG === 'true') {
+		console.log('********************')
+		console.log(context)
+		console.log('********************')
+	}
 
-	const isPullRequest = context.pull_request !== null
+	const isPullRequest = context.pull_request !== null && context.pull_request.hasOwnProperty('number')
 
 	if (isPullRequest) {
 		const octokit = github.getOctokit(token)
