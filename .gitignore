@@ -5,3 +5,4 @@ node_modules/
 debug/
 coverage
 cc-test-reporter
+.env

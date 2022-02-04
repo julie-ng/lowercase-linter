@@ -20,42 +20,47 @@ const ui = require('./cli')
  * @return {Array} errors - list of objectd with same properties as above.
  */
 async function run (opts = {}) {
-// function run (opts = {}) {
+	// console.log('Hello - change to trigger Workflow run. Remember to do ncc builds too!')
+	console.log('Hello - 5')
 	const toLint = opts.path || '.'
+
 	ui.cli.print('start', { path: toLint })
 
 	try {
-		const results = lint({ path: toLint })
-		// console.log(results)
-		const errors = results.filter((m) => m.isValid === false)
-		let commentUrl = ''
+		const shouldComment = core.getInput('pr-comment') === 'true' || process.env.CASE_LINTER_COMMENT_ON_PR === 'true'
+		const linted = lint({ path: toLint })
+		const errors = linted.filter((m) => m.isValid === false)
+		let results = {
+			all: linted,
+			errors: [],
+			commentUrl: ''
+		}
 
-		if (errors.length > 0) {
-			// console.log(errors)
-			ui.cli.print('suggestions', { errors: errors })
-			const token = core.getInput('repo-token')
-			if (token === '') {
-				throw 'Missing GitHub token to post comment to Pull Request'
-			} else {
-				commentUrl = await postErrorsToPullRequest(errors)
-				console.log('Added')
-			}
-		} else {
+		if (errors.length === 0) {
 			ui.cli.print('success')
+		} else {
+			ui.cli.print('suggestions', { errors: errors })
+			results.errors = errors
+			if (shouldComment) {
+				results.commentUrl = await addComment(linted, errors)
+			}
 		}
 
-		return {
-			errors,
-			all: results,
-			commentUrl
-		}
+		return results
+
 	} catch (err) {
-		console.error('Could not lint path')
+		console.error(`Could not lint path ${toLint}`)
 		console.error(err)
 		process.exit(1)
 	}
+}
 
-	return 'hello world'
+async function addComment (linted, errors) {
+	if (process.env.NODE_ENV === 'local') {
+		return 'local-test-has-no-url'
+	} else {
+		return await postErrorsToPullRequest(errors)
+	}
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 'use strict'
 
 const github = require('@actions/github')
-// const core = require('@actions/core')
+const core = require('@actions/core')
 const messages = require('./messages')
 const markdown = require('./markdown')
 
@@ -9,14 +9,20 @@ const markdown = require('./markdown')
  * Adds a Comment to Pull Request
  * with list of files that are invalid
  *
- * @param {*} errors
+ * @param {Array} errors
  * @returns {String} url of the comment, including hash to scroll to that point on page.
  */
-const addCommentToPR = async function (token, errors) {
-	// console.log(errors)
+const addCommentToPR = async function (errors) {
+	console.log('addCommentToPR()')
+	console.log(errors)
 	// const testIssue = '1' // for testing
-
+	const token = core.getInput('repo-token')
 	const context = github.context.payload
+
+	// console.log('********************')
+	// console.log(context)
+	// console.log('********************')
+
 	const isPullRequest = context.pull_request !== null
 
 	if (isPullRequest) {
@@ -32,8 +38,8 @@ const addCommentToPR = async function (token, errors) {
 			issue_number,
 			body,
 		})
-		console.log(result)
-		return result.html_url
+		// console.log(result)
+		return result.data.html_url
 	} else {
 		console.log('Missung GitHub token or not a Pull Request - nothing to do.')
 	}
