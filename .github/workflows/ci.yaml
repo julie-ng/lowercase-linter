@@ -28,6 +28,7 @@ jobs:
 
       - run: npm run lint
       - run: npm run test
+      - run: node ./lint-fixtures.js
 
   coverage:
     runs-on: ubuntu-latest

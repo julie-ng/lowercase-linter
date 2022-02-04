@@ -1,50 +1,54 @@
 name: run-action
 
 on:
-  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
     branches:
-      - 'dev'
       - 'main'
-      - 'test-pr'
+      - 'dev'
     paths:
       - 'dist/**.js' # otherwise there's no real change in action
 jobs:
   passing_scenarios:
     runs-on: ubuntu-latest
-    name: 🟢 Passing use case
+    name: Passing use case
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run Action
+      - name: Lint Valid Fixtures
         uses: ./ # this repo
-        id: run_action
+        id: run_passing
         with:
           path: 'fixtures/always-passing'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Debug Outputs
-        run: echo "${{ steps.run_action.outputs }}"
-
+        run: echo "${{ toJSON(steps.run_passing.outputs) }}"
 
   failing_scenarios:
     runs-on: ubuntu-latest
-    name: 🔴 Failing use case
+    name: Failing use case
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run Action
+      - name: Lint Invalid Fixtures
         uses: ./ # this repo
-        id: run_action
+        id: run_failing
         continue-on-error: true
         with:
           path: 'fixtures/'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-comment: true
 
-      - name: Debug Outputs
-        run: echo "${{ steps.run_action.outputs }}"
+      - name: Comment URL
+        run: echo "${{ steps.run_failing.outputs.comment-url }}"
 
       - name: Confirm Fixtures Failed
         run: |
-          if [[ ${{ steps.run_action.outcome }} == 'failure' ]]; then exit 0; else exit 1; fi
+          if [[ ${{ steps.run_failing.outcome }} == 'failure' ]]; then exit 0; else exit 1; fi
+
+      # - name: TODO - confirm PR posted
+      #   run: |
+      #     ???
