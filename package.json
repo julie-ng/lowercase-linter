@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "Julie Ng <me@julie.io>",
   "main": "main.js",
+  "private": true,
   "description": "A GitHub Action to fail builds whos files have both upper and lower case mixed, i.e. camelCase.",
   "license": "MIT",
   "homepage": "https://github.com/julie-ng/lowercase-linter-action",
