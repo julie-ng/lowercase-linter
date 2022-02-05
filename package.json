@@ -1,6 +1,6 @@
 {
   "name": "lowercase-linter-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Julie Ng <me@julie.io>",
   "main": "main.js",
   "private": true,
