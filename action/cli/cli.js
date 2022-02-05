@@ -3,6 +3,7 @@ const icons = require('./icons')
 const colors = require('./colors')
 const suggestFix = require('./../linter/suggestion')
 const messages = require( './messages' )
+const version = require('./../../package.json').version
 
 /**
  * UI for CLI - colored icons and text templates
@@ -12,8 +13,11 @@ const messages = require( './messages' )
 // ---
 
 function _startRun (path = '') { // ==> messages
-	const toSearch = (path) ? colors.yellow(' in ') + colors.cyan(path) : ''
-	return colors.yellow('Checking filenames'.toUpperCase()) + toSearch
+	// const toSearch = (path) ? colors.yellow(' in ') + colors.cyan(path) : ''
+	// const toSearch = path === '.'
+	// 	? '.'
+	// 	: './' + path
+	return 'Checking filenames in ' + path
 }
 
 
@@ -46,6 +50,11 @@ const errors = {
 	}
 }
 
+function printVersion () {
+	console.log(colors.cyan('========================='))
+	console.log(colors.cyan(` lowercase-liner v${version}`))
+	console.log(colors.cyan('========================='))
+}
 
 // What to print?
 // and add vertical padding
@@ -107,8 +116,8 @@ function addVerticalMargins (str) {
 	return '\n' + str + '\n'
 }
 
-
 module.exports = {
 	print,
+	printVersion,
 	results,
 }

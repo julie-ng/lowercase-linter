@@ -5,12 +5,6 @@ const postErrorsToPullRequest = require('./github/add-comment')
 const lint = require('./linter/run')
 const ui = require('./cli')
 
-// function LinterError (errors, body = '') {
-// 	this.message = ui.errorMsg
-// 	this.invalidNames = errors
-// 	this.body = body
-// }
-
 /**
  * Run Action
  *
@@ -23,6 +17,7 @@ async function run (opts = {}) {
 	// console.log('Hello - 5')
 	const toLint = opts.path || '.'
 
+	ui.cli.printVersion()
 	ui.cli.print('start', { path: toLint })
 
 	try {
