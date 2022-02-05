@@ -25,7 +25,7 @@ const addCommentToPR = async function (errors) {
 		console.log('********************')
 	}
 
-	const isPullRequest = context.pull_request !== null && context.pull_request.hasOwnProperty('number')
+	const isPullRequest = Object.prototype.hasOwnProperty.call(context, 'pull_request') // && Object.prototype.hasOwnProperty.call(context.pull_request, 'number')
 
 	if (isPullRequest) {
 		const octokit = github.getOctokit(token)
