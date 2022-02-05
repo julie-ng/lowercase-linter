@@ -250,13 +250,12 @@ const markdown = __nccwpck_require__(8885)
  * @returns {String} url of the comment, including hash to scroll to that point on page.
  */
 const addCommentToPR = async function (errors) {
-	console.log('addCommentToPR()')
-	console.log(errors)
-	// const testIssue = '1' // for testing
 	const token = core.getInput('repo-token')
 	const context = github.context.payload
 
 	if (process.env.CASE_LINTER_DEBUG === 'true') {
+		console.log('addCommentToPR()')
+		console.log(errors)
 		console.log('********************')
 		console.log(context)
 		console.log('********************')
