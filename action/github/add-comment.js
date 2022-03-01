@@ -42,7 +42,7 @@ const addCommentToPR = async function (errors) {
 		// console.log(result)
 		return result.data.html_url
 	} else {
-		console.log('Missung GitHub token or not a Pull Request - nothing to do.')
+		console.log('Nothing to do: not a Pull Request or missing GitHub token.')
 	}
 }
 
