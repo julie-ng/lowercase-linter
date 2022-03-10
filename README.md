@@ -31,6 +31,12 @@ steps:
       repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### Example Pull Request Comment
+
+Use the `pr-comment` param to toggle whether you want suggested renames added to a pull request.
+
+<img src="./images/comment-preview.png" alt="Example: Errors posted to Pull Request" width="640">
+
 ## Inputs
 
 - #### `path` (optional)  
