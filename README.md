@@ -17,18 +17,29 @@ A GitHub Action to fail builds whos files have both upper and lower case mixed, 
 ### Example Usage
 
 ```yaml
-steps:
-  - name: Checkout
-    uses: actions/checkout@v2
+name: Lint Filenames
 
-  - name: Lint Filenames
-    uses: julie-ng/lowercase-linter@v1
-    id: lint_filenames
-    continue-on-error: true
-    with:
-      path: '.'
-      pr-comment: true
-      repo-token: ${{ secrets.GITHUB_TOKEN }}
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  lint-filenames:
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Lint Filenames
+        uses: julie-ng/lowercase-linter@v1
+        id: lint_filenames
+        continue-on-error: true
+        with:
+          path: '.'
+          pr-comment: true
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Example Pull Request Comment
